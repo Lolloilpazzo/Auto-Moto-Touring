@@ -1,0 +1,61 @@
+<%= form_with(model: tour) do |form| %>
+  <% if tour.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(tour.errors.count, "error") %> prohibited this tour from being saved:</h2>
+
+      <ul>
+        <% tour.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field form-group">
+    
+    <%= form.text_field :Autista, class:"form-control",placeholder:"Autista" %>
+  </div>
+<br/>
+  <div class="field form-group">
+    
+    <%= form.text_field :Mezzo_Di_Trasporto, class:"form-control",placeholder:"Mezzo Di Trasporto" %>
+  </div>
+<br/>
+  <div class="field form-group">
+    <%= form.label :Data %>
+    <%= form.date_select :Data, class:"form-control",placeholder:"Data" %>
+  </div>
+<br/>
+  <div class="field form-group">
+   
+    <%= form.text_field :Partenza, class:"form-control",placeholder:"Partenza" %>
+  </div>
+<br/>
+  <div class="field form-group">
+   
+    <%= form.text_field :destinazione, class:"form-control",placeholder:"Destinazione" %>
+  </div>
+<br/>
+  <div class="field form-group">
+   
+    <%= form.text_field :durata, class:"form-control",placeholder:"Durata" %>
+  </div>
+<br/>
+  <div class="field form-group">
+   
+    <%= form.number_field :Posti_Disponibili, class:"form-control",placeholder:"Posti Disponibili" %>
+  </div>
+  <br/>
+ 
+  <div class="field form-group">
+   
+    <%= form.number_field :user_id, id: :tour_user_id, class:"form-control",value: current_user.id ,type: :hidden %>
+  </div>
+  
+
+
+<br/>
+  <div class="actions">
+    <%= form.submit class:"btn btn-secondary"%>
+  </div>
+<% end %>

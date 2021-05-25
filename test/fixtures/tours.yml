@@ -1,0 +1,19 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  Autista: MyString
+  Mezzo_Di_Trasporto: MyString
+  Data: 2021-05-20
+  Partenza: MyString
+  destinazione: MyString
+  durata: MyString
+  Posti_Disponibili: 1
+
+two:
+  Autista: MyString
+  Mezzo_Di_Trasporto: MyString
+  Data: 2021-05-20
+  Partenza: MyString
+  destinazione: MyString
+  durata: MyString
+  Posti_Disponibili: 1

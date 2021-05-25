@@ -1,0 +1,39 @@
+
+
+<div class="jumbotron">
+  <h1 class="display-4"><%= @tour.Autista %> <%= @tour.Partenza %>- <%= @tour.destinazione %></h1>
+  <p class="lead"><p>
+  <strong>Mezzo di trasporto:</strong>
+  <%= @tour.Mezzo_Di_Trasporto %>
+</p>
+
+<p>
+  <strong>Data:</strong>
+  <%= @tour.Data %>
+</p>
+<p>
+  <strong>Durata:</strong>
+  <%= @tour.durata %>
+</p>
+
+<p>
+  <strong>Posti disponibili:</strong>
+  <%= @tour.Posti_Disponibili %>
+</p>
+</p>
+  <hr class="my-4">
+  
+  <p class="lead">
+
+  <%if @tour.user==current_user%>
+    <%= link_to 'Edit', edit_tour_path(@tour),class:"btn btn-secondary" %> | 
+    <%= link_to 'Elimina', @tour, method: :delete, data: { confirm: 'Sei sicuro di voler eliminare questo tour?'},class:'btn btn-danger'  %> | 
+    <%= link_to 'Back', home_ALL_path,class:"btn btn-dark" %>
+  <%else %>
+  <%= link_to 'Back', home_ALL_path,class:"btn btn-dark" %>
+  <% end %>
+  
+  
+  </p>
+</div>
+

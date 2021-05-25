@@ -1,0 +1,7 @@
+<h1>Modifica Tour</h1>
+
+<%= render 'form', tour: @tour %>
+<br/>
+<%= link_to 'Show', @tour,class:"btn btn-secondary" %> | 
+<%= link_to 'Elimina', @tour, method: :delete, data: { confirm: 'Sei sicuro di voler eliminare questo tour?'},class:'btn btn-danger'  %> |
+<%= link_to 'Back', tours_path,class:"btn btn-dark" %> 
