@@ -8,9 +8,6 @@ Rails.application.routes.draw do
   get 'home/about'
   get 'home/stat'
   get 'home/ALL'
-
-  devise_for :users, :controllers => { :omniauth_callbacks => 
-"users/omniauth_callbacks" }
  
  
  
