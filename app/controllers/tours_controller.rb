@@ -12,6 +12,7 @@ class ToursController < ApplicationController
   # GET /tours/1 or /tours/1.json
   def show
   end
+ 
 
   # GET /tours/new
   def new
@@ -66,6 +67,9 @@ def correct_user
   @tour = current_user.tours.find_by(id: params[:id])
   redirect_to tours_path, notice:"Not Autorized To Edit This Tour" if @tour.nil?
 end
+
+
+
 
   private
     # Use callbacks to share common setup or constraints between actions.

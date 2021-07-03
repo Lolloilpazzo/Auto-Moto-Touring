@@ -10,7 +10,36 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_05_21_170143) do
+ActiveRecord::Schema.define(version: 2021_06_28_203812) do
+
+  create_table "comments", force: :cascade do |t|
+    t.text "body"
+    t.integer "tour_id"
+    t.integer "parent_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "invitations", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.integer "friend_id"
+    t.boolean "confirmed", default: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id"], name: "index_invitations_on_user_id"
+  end
+
+  create_table "stops", force: :cascade do |t|
+    t.integer "postition"
+    t.string "address"
+    t.decimal "latitude"
+    t.decimal "longitude"
+    t.date "arrival_date"
+    t.integer "tour_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["tour_id"], name: "index_stops_on_tour_id"
+  end
 
   create_table "tours", force: :cascade do |t|
     t.string "Autista"
@@ -38,4 +67,6 @@ ActiveRecord::Schema.define(version: 2021_05_21_170143) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "invitations", "users"
+  add_foreign_key "stops", "tours"
 end

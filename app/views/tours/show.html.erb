@@ -1,39 +1,166 @@
 
+<main class="ui two column doubling stackable grid container">
+    <div class="column">
+        <div class="ui basic segment">
+            <h1 class="display-4" class="ui header">
+                <%= @tour.Autista %>
+            </h1>
+        </div>
+        <div class="ui raised padded text segment">
+            <h3>Partenza</h3>
+            <p>
+                <%= @tour.Partenza %>
+            </p>
+            <h3>Destinazione</h3>
+            <p>
+                <%= @tour.destinazione %>
+            </p>
+            <h3>Date/Time:</h3>
+            <p>
+                <%= @tour.Data %>
+            </p>
+            <h3>Mezzo Di Trasporto</h3>
+            <p>
+                <%= @tour.Mezzo_Di_Trasporto %>
+            </p>
 
-<div class="jumbotron">
-  <h1 class="display-4"><%= @tour.Autista %> <%= @tour.Partenza %>- <%= @tour.destinazione %></h1>
-  <p class="lead"><p>
-  <strong>Mezzo di trasporto:</strong>
-  <%= @tour.Mezzo_Di_Trasporto %>
-</p>
 
-<p>
-  <strong>Data:</strong>
-  <%= @tour.Data %>
-</p>
-<p>
-  <strong>Durata:</strong>
-  <%= @tour.durata %>
-</p>
+            
+            <div id="durata">
 
-<p>
-  <strong>Posti disponibili:</strong>
-  <%= @tour.Posti_Disponibili %>
-</p>
-</p>
+
+            </div>
+            <div id="distanza">
+
+
+            </div>
+
+        </div>
+        <div class="ui basic segment">
+            <h4 class="ui header">Stops:</h4>
+            <div class="ui two column doubling stackable grid container">
+                 <% @tour.stops.each do |stop| %>
+                    <span class="column">
+                        <div class="ui attached segment">
+                           <%= link_to stop.address, tour_stop_path(@tour, stop) %>
+                        </div>
+                    </span>
+                    <% end %>
+                     
+            </div>
+        </div>
+        <div class="ui floated basic segment">
+            <h4>Passengers:</h4>
+            
+        </div>
+    </div>
+    
+        <div class="column">
+            <div class="ui basic segment"></div>
+            
+                <div class="ui segment">
+                    <h3>Tragitto:</h3>
+                    <script>
+var directionsDisplay = new google.maps.DirectionsRenderer();
+var directionsService = new google.maps.DirectionsService();
+
+function calcRoute() {
+  var infowindow = new google.maps.InfoWindow();
+    var request = {
+        origin:      "<%=@tour.Partenza%>",
+        destination: "<%=@tour.destinazione%>",
+        travelMode:  google.maps.TravelMode.DRIVING,
+        unitSystem: google.maps.UnitSystem.IMPERIAL
+    };
+    directionsService.route(request, function(response, status) {
+        if (status == google.maps.DirectionsStatus.OK) {
+
+            const distanza = document.querySelector('#distanza');
+            distanza.innerHTML = "<br /><strong>Distanza</strong> <i class='fas fa-road'></i> : " + (response.routes[0].legs[0].distance.value)*(0.000621371) + " Km" + ".</div>";
+            const durata =document.querySelector('#durata');
+            durata.innerHTML = "<br /><strong>Durata</strong><i class='fas fa-hourglass-start'></i> : " + response.routes[0].legs[0].duration.text + ".</div>";
+            directionsDisplay.setDirections(response);
+        }
+    });
+}
+
+calcRoute();
+
+</script>
+<div style='width: 800px;'>
+  <div id="map" style='width: 400px; height: 400px;'></div>
+  </div>
+<script>
+
+handler = Gmaps.build('Google');
+handler.buildMap({ provider: {}, internal: {id: 'map'}}, function(){
+    directionsDisplay.setMap(handler.getMap());
+    markers = handler.addMarkers(<%=raw @hash.to_json %>);
+    handler.bounds.extendWith(markers);
+    handler.fitMapToBounds();
+    handler.getMap().setZoom(15);
+});
+
+
+</script>
+ </div>
+               
+                    <div class="ui segment">
+                    <h3>Invite a Friend!</h3>
+
+                    <% User.all.each do |f| %>
+                        <%if f.friend_with?(current_user)%>
+                         <%= f.email %>
+                            <input class="ui tiny basic button" type="submit" name="commit" value="Invite Friend" data-disable-with="Invite Friend">
+                            <% end %>
+                            <%end%>
+                    
+                </div>
+                       
+                        <div class="ui segment">
+                            <h3 class="ui header">Add Comment</h3>
+                        <%= form_with(model: [@tour, @tour.comments.build]) do |f| %>
+                              <div class="form-group">
+                                <% @tour.comments.each do |comment| %>
+                                <div class="comment_content">
+                                
+                                <p><%= comment.body %></p>
+                                
+                                <% end %>
+                                <%= f.text_area :body, class: 'form-control' %>
+                              </div>
+                              <%= f.submit 'invia', class: 'ui tiny basic button' %>
+                            <% end %>
+
+
+                           
+
+    
+
+  
+    
+    
+  </div>
+
+  
+</div>
+                             
+                               
+                              
+  </main>
+      
   <hr class="my-4">
   
   <p class="lead">
 
   <%if @tour.user==current_user%>
-    <%= link_to 'Edit', edit_tour_path(@tour),class:"btn btn-secondary" %> | 
-    <%= link_to 'Elimina', @tour, method: :delete, data: { confirm: 'Sei sicuro di voler eliminare questo tour?'},class:'btn btn-danger'  %> | 
-    <%= link_to 'Back', home_ALL_path,class:"btn btn-dark" %>
+    <%= link_to 'Edit', edit_tour_path(@tour),class:"btn btn-secondary" %> | <%= link_to 'Back', home_ALL_path,class:"btn btn-dark" %>|
+    <%= link_to 'Add Stop', new_tour_stop_path(@tour) %> 
+    
   <%else %>
   <%= link_to 'Back', home_ALL_path,class:"btn btn-dark" %>
   <% end %>
   
   
   </p>
-</div>
-
+       

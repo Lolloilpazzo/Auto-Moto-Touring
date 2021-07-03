@@ -30,11 +30,11 @@
         <td><%= tour.destinazione %></td>
         <td><%= tour.durata %></td>
         <td><%= tour.Posti_Disponibili %></td>
-        <td><%= tour.user_id %></td>
-        <td><%= link_to 'Mostra', tour,class:'btn btn-outline-primary btn-sm' %></td>
+        <td><%= link_to 'Show Trip', tour %></td>
+        <td><%= link_to 'Mostra Tappe', tour_stops_path(tour),class:'btn btn-outline-primary btn-sm' %></td>
         <td><%= link_to 'Modifica', edit_tour_path(tour),class:'btn btn-outline-warning btn-sm' %></td>
-        <td><%= link_to 'Elimina', tour, method: :delete, data: { confirm: 'Sei sicuro di voler eliminare questo tour?'},class:'btn btn-outline-danger btn-sm'  %></td>
-        
+        <td><%= button_to 'Elimina', tour, method: :delete,class:'btn btn-outline-danger btn-sm', data: {confirm: "Sei sicuro di voler eliminare questo tour?"}  %></td>
+       
       </tr>
       <% end %>
     <% end %>
@@ -42,5 +42,6 @@
 </table>
 
 <br>
+
 
 <%= link_to 'Aggiungi Tour', new_tour_path,class:"btn btn-secondary" %>

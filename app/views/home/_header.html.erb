@@ -1,4 +1,7 @@
-<nav class="navbar navbar-expand-lg navbar navbar-dark bg-dark">
+
+
+
+<nav class="navbar navbar-expand-lg navbar navbar-dark bg-dark" >
   <div class="container-fluid">
     <%= link_to 'Auto/Moto Touring App',root_path, class:"navbar-brand" %>
     
@@ -22,14 +25,20 @@
         <li class="nav-item">
          <%= link_to "All Tours", home_ALL_path, class:"nav-link active"%>
         </li>
-        
         <li class="nav-item">
-         <%= link_to "Sign Out", destroy_user_session_path, method: :delete, class:"nav-link active" %>
+         <%= link_to "Profile", user_path(current_user), class:"nav-link active"%>
         </li>
+        <li class="nav-item">
+         <%= link_to "all profile", users_index_path, class:"nav-link active"%>
+        </li>
+        
+       
         <li class="nav-item">
          <%= link_to "Edit Profile", edit_user_registration_path, class:"nav-link active"%>
         </li>
-        
+         <li class="nav-item" >
+         <%= button_to "Sign Out", destroy_user_session_path, method: :delete,class: 'btn btn-dark navbar-btn btn-sm' %>
+        </li>
 
         <% else %>
 

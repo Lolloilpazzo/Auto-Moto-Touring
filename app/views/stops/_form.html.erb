@@ -1,0 +1,52 @@
+
+
+<%= form_with(model: [@tour,stop],local: true, data: { controller: "places", action: "google-maps-callback@window->places#initMap", places_latitude: stop.latitude, places_longitude: stop.longitude }) do |form| %>
+  <% if stop.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(stop.errors.count, "error") %> prohibited this stop from being saved:</h2>
+
+      <ul>
+        <% stop.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+<div class="d-flex">
+<div>
+  <div class="form-group">
+    <%= form.label :postition %>
+    <%= form.number_field :postition, class: 'form-control' %>
+  </div>
+
+ <div class="form-group">
+    <%= form.label :address %>
+    <%= form.search_field :address, class: 'form-control', data: { target: "places.field", action: "keydown->places#keydown" } %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :latitude %>
+    <%= form.text_field :latitude, class: 'form-control', data: { target: "places.latitude" } %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :longitude %>
+    <%= form.text_field :longitude, class: 'form-control', data: { target: "places.longitude" } %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :arrival_date %>
+    <%= form.date_select :arrival_date, class: 'form-control' %>
+  </div>
+
+  <div class="p-4">
+      <div data-target="places.map" style="height:400px;width:400px"></div>
+    </div>
+</div>
+</div>
+  <div class="actions">
+    <%= form.submit %>
+
+  </div>
+<% end %>
+

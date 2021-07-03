@@ -29,7 +29,7 @@
         <td><%= tour.durata %></td>
         <td><%= tour.Posti_Disponibili %></td>
         
-        <td><%= link_to 'Scopri Di Più', tour,class:'btn btn-outline-primary btn-sm' %></td>
+        <td><%= link_to 'Mostra Tour', tour,class:'btn btn-outline-primary btn-sm' %></td>
        
         
       </tr>
@@ -38,6 +38,33 @@
 </table>
 
 <br>
+
+<main class="ui one column doubling stackable grid container">    
+            
+<section >
+                <% Tour.all.each do |tour| %>
+                    <div class="ui vertical segment">
+                        <h3 class="ui header">
+                            <%= link_to  tour.Partenza, tour_path(tour) %>
+                            <%= link_to  tour.destinazione, tour_path(tour) %>
+                             
+                        </h3>
+                        <h5 class="ui header">
+                            <%= tour.Autista %>
+                        </h5>
+                        <p class="ui segment">
+                            <%= tour.Data %>  
+                        </p>
+                        <button class="ui tiny button">
+                            <%= link_to  "Show Tour", tour %>
+                        </button>
+                        
+                    </div>
+                <% end %>
+                        
+                        
+  </section>
+  </main>
 
 <% else %>
 

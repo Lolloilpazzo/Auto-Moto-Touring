@@ -7,5 +7,6 @@ class HomeController < ApplicationController
   end
   def ALL
   end
+  
  
 end

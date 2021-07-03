@@ -11,6 +11,7 @@
     </div>
   <% end %>
 
+
   <div class="field form-group">
     
     <%= form.text_field :Autista, class:"form-control",placeholder:"Autista" %>
@@ -28,12 +29,12 @@
 <br/>
   <div class="field form-group">
    
-    <%= form.text_field :Partenza, class:"form-control",placeholder:"Partenza" %>
+    <%= form.text_field :Partenza, class:"form-control",placeholder:"Partenza",id:"from"%>
   </div>
 <br/>
   <div class="field form-group">
    
-    <%= form.text_field :destinazione, class:"form-control",placeholder:"Destinazione" %>
+    <%= form.text_field :destinazione, class:"form-control",placeholder:"Destinazione",id:"to" %>
   </div>
 <br/>
   <div class="field form-group">
@@ -55,6 +56,16 @@
 
 
 <br/>
+ 
+<script>
+
+
+var input1 = document.getElementById("from");
+var autocomplete1 = new google.maps.places.Autocomplete(input1);
+
+var input2 = document.getElementById("to");
+var autocomplete2 = new google.maps.places.Autocomplete(input2);
+</script>
   <div class="actions">
     <%= form.submit class:"btn btn-secondary"%>
   </div>

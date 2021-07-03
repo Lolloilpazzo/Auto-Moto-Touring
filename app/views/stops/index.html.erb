@@ -1,0 +1,96 @@
+<p id="notice"><%= notice %></p>
+
+<h1 class="display-4"><%= @tour.Autista %> <%= @tour.Partenza %>- <%= @tour.destinazione %></h1>
+  <p class="lead"><p>
+  <strong>Mezzo di trasporto:</strong>
+  <%= @tour.Mezzo_Di_Trasporto %>
+</p>
+
+<p>
+  <strong>Data:</strong>
+  <%= @tour.Data %>
+</p>
+<p>
+  <strong>Durata:</strong>
+  <%= @tour.durata %>
+</p>
+
+<p>
+  <strong>Posti disponibili:</strong>
+  <%= @tour.Posti_Disponibili %>
+</p>
+<p>
+  <strong>Partenza:</strong>
+  <%= @tour.Partenza%>
+</p>
+
+<p>
+  <strong>Destinazione:</strong>
+  <%= @tour.destinazione %>
+</p>
+
+
+
+
+
+
+
+
+
+
+<h1>Stops</h1>
+
+<div class="table-responsive">
+  <table class="table table-striped table-bordered table-hover">
+  <thead>
+    <tr>
+      <th>Postition</th>
+      <th>Address</th>
+      <th>Latitude</th>
+      <th>Longitude</th>
+      <th>Arrival date</th>
+      <th>Tour</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @stops.each do |stop| %>
+      <tr>
+        <td><%= stop.postition %></td>
+        <td><%= stop.address %></td>
+        <td><%= stop.latitude %></td>
+        <td><%= stop.longitude %></td>
+        <td><%= stop.arrival_date %></td>
+        <td><%= stop.tour_id %></td>
+        <%if @tour.user==current_user%>
+        <td><%= link_to 'Show Stop', [@tour,stop] %></td>
+        <td><%= link_to 'Edit Stop', edit_tour_stop_path(@tour,stop) %></td>
+        <td><%= button_to 'Destroy Stop', [@tour,stop], method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <%end%>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+</div>
+
+
+<div style='width: 800px;'>
+  <div id="map" style='width: 800px; height: 400px;'></div>
+</div>
+<script>
+handler = Gmaps.build('Google');
+handler.buildMap({ provider: {}, internal: {id: 'map'}}, function(){
+  markers = handler.addMarkers(<%=raw @hash.to_json %>);
+  handler.bounds.extendWith(markers);
+  handler.fitMapToBounds();
+});
+</script>
+
+      
+<br>
+<%= link_to 'Back', home_ALL_path,class:"btn btn-dark" %>
+
+<%if @tour.user==current_user%>
+<%= link_to 'New Stop', new_tour_stop_path(@tour) %>
+<%end%>

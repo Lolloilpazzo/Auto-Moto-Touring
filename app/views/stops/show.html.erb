@@ -1,0 +1,57 @@
+<p id="notice"><%= notice %></p>
+
+<main class="ui two column doubling stackable grid container">
+    <div class="column">
+        <div class="ui basic segment">
+            <h1 class="display-4" class="ui header">
+               <%= @stop.address %>
+            </h1>
+        </div>
+        <div class="ui raised padded text segment">
+            <h3>Latitude</h3>
+            <p>
+               <%= @stop.latitude %>
+            </p>
+            <h3>Longitude:</h3>
+            <p>
+               <%= @stop.longitude %>
+            </p>
+            <h3>Tempo</h3>
+            <p>
+                
+            </p><p>
+            <%= link_to 'Edit', edit_tour_stop_path(@tour,@stop) %> 
+            </div>
+            </div>
+        <div class="column">
+            <div class="ui basic segment"></div>
+            
+                <div class="ui segment">
+                    <h3>Mappa:</h3>
+                    <div style='width: 800px;'>
+  <div id="map" style='width: 400px; height: 400px;'></div>
+</div>
+
+<script>
+      
+    handler = Gmaps.build('Google');
+handler.buildMap({ provider: {}, internal: {id: 'map'}}, function(){
+   markers = handler.addMarkers([
+      {
+          "lat": "<%= @stop.latitude %>",
+          "lng": "<%= @stop.longitude %>",
+          "infowindow": "<%= @stop.address %>"
+          
+      }  
+  ]);
+  handler.bounds.extendWith(markers);
+  handler.fitMapToBounds();
+});
+</script>
+
+
+ </div>
+ </div>
+ 
+<%= link_to 'Back', @tour%>
+ </main>

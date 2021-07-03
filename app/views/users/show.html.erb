@@ -1,0 +1,104 @@
+<p id="notice"><%= notice %></p>
+
+<main class="ui two column doubling stackable grid container">
+    <div class="column">
+        
+        
+        
+        
+       
+        </div>
+
+        </div>
+
+
+
+
+
+
+
+
+
+<main class="ui two column doubling stackable grid container">
+    <div class="column">
+        <div class="ui basic segment">
+            <h1 class="ui header"><%=@user.email%></h1>
+            <p class="ui tiny basic positive button" href="/users/<%=@user.id%>/edit">Edit Profile</p>
+        <a class="ui tiny negative basic right floated button" data-confirm="Are you sure?" rel="nofollow" data-method="delete" href="/users/<%=@user.id%>">Delete Profile</a>
+            </div>
+            <div class="ui raised padded text segment">
+            <% Tour.all.each do |tour| %>
+         <%if tour.user==current_user%>
+            <div class="ui vertical segment">
+                   
+        <%= tour.Autista %>
+        <%= tour.Mezzo_Di_Trasporto %>
+        <%= tour.Data %>
+        <%= tour.Partenza %>
+        <%= tour.destinazione %>
+        <%= tour.durata %>
+        <%= tour.Posti_Disponibili %>
+        <%= link_to 'Show Trip', tour %>
+        <%= link_to 'Mostra Tappe', tour_stops_path(tour),class:'btn btn-outline-primary btn-sm' %>
+        <%= link_to 'Modifica', edit_tour_path(tour),class:'btn btn-outline-warning btn-sm' %>
+        <%= button_to 'Elimina', tour, method: :delete,class:'btn btn-outline-danger btn-sm', data: {confirm: "Sei sicuro di voler eliminare questo tour?"}  %>
+       
+      
+      <% end %>
+            </div>
+            <%end%>
+            </div>
+            
+        
+        
+
+       
+    
+</section>
+<section class="column">
+
+
+  <div class="ui basic segment">
+            <h4 class="ui header">Friends:</h4>
+            <div class="ui two column doubling stackable grid container">
+                 <% @user.friends.each do |friend| %>
+                    <span class="column">
+                        <div class="ui attached segment">
+                           <%= friend.email %>
+                           <% if @user == current_user %>
+        <%= link_to 'Unfriend',
+        invitations_destroy_path(invitation_id: Invitation.find_invitation(@user.id, friend.id)), data: {confirm: "Sei sicuro di voler eliminare questo amico?"}  %>
+      <% end %>
+                        </div>
+                    </span>
+                    <% end %>
+            </div>
+        </div>
+        
+        <div class="ui basic segment">
+        <h4 class="ui header">These people wants to be friend with you:</h4>
+            <div class="ui two column doubling stackable grid container">
+                            <%if @user.email==current_user.email%>
+                             <% @user.pending_invitations.each do |invitation| %>
+                            <span class="column">
+                            <div class="ui attached segment">
+                                  <%= User.find(invitation.user_id).email %>
+                                  <%= link_to 'Accept Invitation',
+                                  invitations_update_path(invitation_id: invitation.id), data: {confirm: "Sei sicuro di voler accettare questo invito?"} %>
+                                  <%= link_to 'Reject Invitation',
+                                  invitations_destroy_path(invitation_id: invitation.id, data: {confirm: "Sei sicuro di voler eliminare questo invito?"}) %>
+                                
+                              <% end %>
+                              </div>
+                              </span>
+                            <%end%>   
+                        </div>
+                        </div>
+                    
+    </section>
+    
+        
+
+
+    
+</main>
