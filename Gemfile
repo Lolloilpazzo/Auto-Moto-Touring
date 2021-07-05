@@ -2,6 +2,8 @@
 
 ruby '3.0.1'
 
+
+source 'https://rubygems.org'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails', branch: 'main'
 gem 'rails', '~> 6.1.3', '>= 6.1.3.2'
 # Use sqlite3 as the database for Active Record
@@ -25,6 +27,17 @@ gem 'stimulus-rails', '~> 0.2.3'
 # gem 'image_processing', '~> 1.2'
 gem 'gmaps4rails'
 gem 'underscore-rails'
+
+
+gem 'omniauth-facebook'
+gem 'omniauth', '~>1.9.1'
+gem 'omniauth-google-oauth2'
+
+gem 'omniauth-rails_csrf_protection'
+
+
+#gem 'fauthentic'
+gem 'openssl'
 
 # Reduces boot times through caching; required in config/boot.rb
 

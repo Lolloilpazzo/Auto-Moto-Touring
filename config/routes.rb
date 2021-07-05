@@ -3,8 +3,11 @@ Rails.application.routes.draw do
   
   
   get 'users/index'
-  devise_for :users, :path_prefix => 'id' 
+  devise_for :users, :path_prefix => 'id' , :controllers => { :omniauth_callbacks => 
+  "users/omniauth_callbacks" }
+
   resources :users, :only =>[:show]
+  
   
   resources :tours do
     resources :stops
