@@ -2,13 +2,46 @@ class User < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :validatable
+         :recoverable, :rememberable, :validatable, 
+         :omniauthable, :omniauth_providers => [:facebook, :google_oauth2]
          
   has_many :tours
   has_many :invitations
   has_many :pending_invitations,->{where confirmed: false}, class_name: 'Invitation', foreign_key: "friend_id"
   
   
+  def self.from_omniauth(access_token)
+      data = access_token.info
+     user = User.where(email: data['email']).first
+   unless user
+      user = User.create( email: data['email'],
+      password: Devise.friendly_token[0,20]
+    )
+    end
+   user
+  end
+
+
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  def self.new_with_session(params, session)
+    super.tap do |user|
+      if data = session["devise.facebook_data"] && session["devise.facebook_data"]
+        ["extra"]["raw_info"]
+    user.email = data["email"] if user.email.blank?
+  end
+end
+end
+
+
+
   def friends
     friends_i_sent_invitation=Invitation.where(user_id: id, confirmed: :true).pluck(:friend_id)
     friends_i_got_invitation=Invitation.where(friend_id: id, confirmed: :true).pluck(:user_id)

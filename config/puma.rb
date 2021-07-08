@@ -41,3 +41,10 @@ pidfile ENV.fetch("PIDFILE") { "tmp/pids/server.pid" }
 
 # Allow puma to be restarted by `rails restart` command.
 plugin :tmp_restart
+
+
+#ssl_bind '127.0.0.1', 3000, {
+#  key: 'facebook_pubblica.key',
+#  cert: 'facebook_penultima.cert',
+#  verify_mode: 'none'
+#}

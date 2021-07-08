@@ -57,3 +57,11 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 gem 'activerecord-session_store'
 
 
+#omniauth
+
+gem 'omniauth-facebook'
+gem 'omniauth', '~> 1.9.1'
+
+gem 'omniauth-google-oauth2'
+
+
