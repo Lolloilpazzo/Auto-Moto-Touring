@@ -308,34 +308,4 @@ Devise.setup do |config|
   # When set to false, does not sign a user in automatically after their password is
   # changed. Defaults to true, so a user is signed in automatically after changing a password.
   # config.sign_in_after_change_password = true
-
-
-
-  
-  #pre google
-  require 'openssl'
-
-  key = OpenSSL::PKey::RSA.new 2048
-
-    open 'private_key.pem', 'w' do |io| io.write key.to_pem end
-    open 'public_key.pem', 'w' do |io| io.write key.public_key.to_pem end
-
-
-  cipher = OpenSSL::Cipher.new 'AES-128-CBC'
-    pass_phrase = 'my secure pass phrase goes here'
-      
-    key_secure = key.export cipher, pass_phrase
-      
-    open 'private.secure.pem', 'w' do |io|
-      io.write key_secure
-  end
-
-#fine pre google
-
-config.omniauth :facebook, '339679757567714', '39b19818d2b8b29d866f28753afbc21d', scope: 'email', info_fields: 'email,name'
-
- # config.omniauth :facebook, '339679757567714', '39b19818d2b8b29d866f28753afbc21d'
-
-  config.omniauth :google_oauth2, '664879677434-hddttnf6fokph46m4n3mklh1jrm5gel6.apps.googleusercontent.com', 'eB6KVHLMlnhxYlF8yF1Pa9z8'
-
 end
