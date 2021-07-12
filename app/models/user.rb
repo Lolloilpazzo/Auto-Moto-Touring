@@ -2,13 +2,36 @@ class User < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
+<<<<<<< Updated upstream
          :recoverable, :rememberable, :validatable, 
          :omniauthable, :omniauth_providers => [:facebook, :google_oauth2]
          
   has_many :tours
+=======
+         :recoverable, :rememberable, :validatable
+  
+  has_many :memberships
+  has_many :tours, :through => :memberships, dependent: :destroy
+>>>>>>> Stashed changes
   has_many :invitations
   has_many :pending_invitations,->{where confirmed: false}, class_name: 'Invitation', foreign_key: "friend_id"
+  has_many :comments
+  has_one_attached :avatar
+  after_commit :add_default_avatar, on: %i[create update]
+
   
+  def username
+    return self.email.split('@')[0].capitalize
+  end
+  
+  def avatar_thumbnail
+    if avatar.attached?
+    avatar.variant(resize: "150x150!").processed 
+    else
+      "/default_profile.jpg"
+    end
+  end
+
   
   def self.from_omniauth(access_token)
       data = access_token.info
@@ -57,7 +80,27 @@ end
   invitations.create(friend_id: user.id)
   end
 
-  
+  def membership?(tour)
+    memberships.find_by(tour: tour).user_id.present?
+  end
+
+  private
+
+def add_default_avatar
+    unless avatar.attached?
+      avatar.attach(
+        io: File.open(
+          Rails.root.join(
+            'app','assets','images','default_profile.jpg'
+          )
+        ), 
+        filename: 'default_profile.jpg',
+        content_type: 'image/jpg'
+      )
+  end
+end
+
+
 
 end
 

@@ -12,8 +12,8 @@
       </ul>
     </div>
   <% end %>
-<div class="d-flex">
-<div>
+<div class="d-flex p-2">
+<div class="p-4" >
   <div class="form-group">
     <%= form.label :postition %>
     <%= form.number_field :postition, class: 'form-control' %>
@@ -38,15 +38,18 @@
     <%= form.label :arrival_date %>
     <%= form.date_select :arrival_date, class: 'form-control' %>
   </div>
-
-  <div class="p-4">
-      <div data-target="places.map" style="height:400px;width:400px"></div>
-    </div>
-</div>
-</div>
+  <br>
+  <br>
   <div class="actions">
     <%= form.submit %>
 
   </div>
+</div>
+  <div class="p-4">
+      <div data-target="places.map" style="height:400px;width:400px"></div>
+    </div>
+</div>
+
+  
 <% end %>
 

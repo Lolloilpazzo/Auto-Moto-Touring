@@ -12,13 +12,23 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.css">
 
 
+<title>Auto/Moto Touring</title>
+  </head>
+  <body>
+  <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= render 'home/header'%>
+    <div class="container">
+    <% if notice %>
+      <%= render 'layouts/alerts' %>
+      <% end %>
+    <br/>
+    <%= yield %>
+  </div>
 
         
   <meta name="viewport" content="width=device-width,initial-scale=1">
-    <%= csrf_meta_tags %>
-    <%= csp_meta_tag %>
-
-    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    
+    
     
     <!-- Required meta tags -->
     <meta charset="utf-8">
@@ -30,17 +40,7 @@
 
 
 
-    <title>Auto/Moto Touring</title>
-  </head>
-  <body>
-    <%= render 'home/header'%>
-    <div class="container">
-    <% if notice %>
-      <%= render 'layouts/alerts' %>
-      <% end %>
-    <br/>
-    <%= yield %>
-  </div>
+    
     <!-- Optional JavaScript; choose one of the two! -->
 
 

@@ -1,82 +1,95 @@
+
 <p id="notice"><%= notice %></p>
-
-<main class="ui two column doubling stackable grid container">
-    <div class="column">
-        
-        
-        
-        
-       
-        </div>
-
-        </div>
+<main class="container">
 
 
+  
 
 
-
-
-
-
-
-<main class="ui two column doubling stackable grid container">
-    <div class="column">
-        <div class="ui basic segment">
-            <h1 class="ui header"><%=@user.email%></h1>
-            <p class="ui tiny basic positive button" href="/users/<%=@user.id%>/edit">Edit Profile</p>
-        <a class="ui tiny negative basic right floated button" data-confirm="Are you sure?" rel="nofollow" data-method="delete" href="/users/<%=@user.id%>">Delete Profile</a>
+<div class="container">
+    <div class="main-body">
+    
+    
+          <div class="row gutters-sm">
+            <div class="col-md-4 mb-3">
+              <div class="card h-100">
+                <div class="card-body">
+                  <div class="d-flex flex-column align-items-center text-center">
+                  	<div class="account-settings">
+                  <div class="card-body">
+                  <div class="user-profile">
+                  <div class="user-avatar" class= "img-circular">
+                    <%=image_tag(@user.avatar_thumbnail) %>
+                    </div>
+                    <div class="mt-3">
+                      <h4><%=@user.username%></h4>
+                      <p class="text-secondary mb-1"><%=@user.email%></p>
+                      <p class="text-muted font-size-sm"><%=@user.about%></p>
+                    </div>
+                    </div>
+                    </div>
+                    <br>
+                    <%= button_to "Cancel my account", user_registration_path, data: { confirm: "Are you sure?" }, method: :delete,class:'btn btn-danger' %>
+                  
+                  </div>
+                  </div>
+                </div>
+              </div>
+             <div class="ui basic segment">
+            <div class="ui two column doubling stackable grid container">
+               
+                 
             </div>
-            <div class="ui raised padded text segment">
-            <% Tour.all.each do |tour| %>
-         <%if tour.user==current_user%>
-            <div class="ui vertical segment">
-                   
-        <%= tour.Autista %>
-        <%= tour.Mezzo_Di_Trasporto %>
-        <%= tour.Data %>
-        <%= tour.Partenza %>
-        <%= tour.destinazione %>
-        <%= tour.durata %>
-        <%= tour.Posti_Disponibili %>
-        <%= link_to 'Show Trip', tour %>
-        <%= link_to 'Mostra Tappe', tour_stops_path(tour),class:'btn btn-outline-primary btn-sm' %>
-        <%= link_to 'Modifica', edit_tour_path(tour),class:'btn btn-outline-warning btn-sm' %>
-        <%= button_to 'Elimina', tour, method: :delete,class:'btn btn-outline-danger btn-sm', data: {confirm: "Sei sicuro di voler eliminare questo tour?"}  %>
-       
-      
-      <% end %>
-            </div>
-            <%end%>
+        </div>
+        
+        
+                       
+              
             </div>
             
-        
-        
+            <div class="col-md-8">
+              <div class="card mb-3">
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col-sm-3">
+                      <h6 class="mb-0">Full Name</h6>
+                    </div>
+                    <div class="col-sm-9 text-secondary">
+                     <%=@user.name%></p>
+                    </div>
+                  </div>
+                  <hr>
+                  <div class="row">
+                    <div class="col-sm-3">
+                      <h6 class="mb-0">Instagram</h6>
+                    </div>
+                    <div class="col-sm-9 text-secondary">
+                      <%=@user.instagram%></p>
+                    </div>
+                  </div>
+                  <hr>
+                  <div class="row">
+                    <div class="col-sm-3">
+                      <h6 class="mb-0">Phone</h6>
+                    </div>
+                    <div class="col-sm-9 text-secondary">
+                      <%=@user.phone%></p>
+                    </div>
+                  </div>
+                  <hr>
+                  <div class="row">
+                    <div class="col-sm-3">
+                      <h6 class="mb-0">Veichle</h6>
+                    </div>
+                    <div class="col-sm-9 text-secondary">
+                      <%=@user.vehicle%></p>
+                    </div>
+                  </div>
+                  <hr>
+                  <div class="row">
 
-       
-    
-</section>
-<section class="column">
-
-
-  <div class="ui basic segment">
-            <h4 class="ui header">Friends:</h4>
-            <div class="ui two column doubling stackable grid container">
-                 <% @user.friends.each do |friend| %>
-                    <span class="column">
-                        <div class="ui attached segment">
-                           <%= friend.email %>
-                           <% if @user == current_user %>
-        <%= link_to 'Unfriend',
-        invitations_destroy_path(invitation_id: Invitation.find_invitation(@user.id, friend.id)), data: {confirm: "Sei sicuro di voler eliminare questo amico?"}  %>
-      <% end %>
-                        </div>
-                    </span>
-                    <% end %>
-            </div>
-        </div>
+                  <div class="ui basic segment">
         
-        <div class="ui basic segment">
-        <h4 class="ui header">These people wants to be friend with you:</h4>
             <div class="ui two column doubling stackable grid container">
                             <%if @user.email==current_user.email%>
                              <% @user.pending_invitations.each do |invitation| %>
@@ -93,12 +106,29 @@
                               </span>
                             <%end%>   
                         </div>
-                        </div>
+            
+
+            
+                  
+                  </div>
+                  <hr>
+                  <div class="row">
+                  <%= link_to "Edit Profile", edit_user_registration_path,class:"btn btn-outline-primary"%>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+    </div>
+    
+  </div>
                     
     </section>
     
         
 
 
-    
+ 
 </main>

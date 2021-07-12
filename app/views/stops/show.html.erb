@@ -20,7 +20,8 @@
             <p>
                 
             </p><p>
-            <%= link_to 'Edit', edit_tour_stop_path(@tour,@stop) %> 
+            <%= link_to 'Edit', edit_tour_stop_path(@tour,@stop),class:"btn btn-outline-warning" %> 
+            <%= button_to 'Destroy Stop', [@tour,@stop],class:"btn btn-outline-danger", method: :delete, data: { confirm: 'Are you sure?' } %>
             </div>
             </div>
         <div class="column">
@@ -29,7 +30,7 @@
                 <div class="ui segment">
                     <h3>Mappa:</h3>
                     <div style='width: 800px;'>
-  <div id="map" style='width: 400px; height: 400px;'></div>
+  <div id="map" style='width: 500px; height: 400px;'></div>
 </div>
 
 <script>
@@ -53,5 +54,5 @@ handler.buildMap({ provider: {}, internal: {id: 'map'}}, function(){
  </div>
  </div>
  
-<%= link_to 'Back', @tour%>
+
  </main>

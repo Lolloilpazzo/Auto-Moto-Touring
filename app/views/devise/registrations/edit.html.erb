@@ -1,17 +1,98 @@
-<div class="card">
-  <div class="card-header">
-    <h4>Modifica Profilo</h4>
+
+<div class="container">
+    
   </div>
   <div class="card-body">
+
 <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
   <%= render "devise/shared/error_messages", resource: resource %>
 
-  <div class="field form-group">
+<div class="container">
+<div class="row gutters">
+<div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12">
+<div class="card h-100">
+	<div class="card-body">
+		<div class="account-settings">
+			<div class="user-profile">
+				<div class="user-avatar">
+					<div class="field form-group">
+          <h4 class="mt-3 mb-2 text-primary">Edit your Profile</h4>
+            <% if @user.avatar.attached? %>
+            <%= image_tag(resource.avatar_thumbnail) %>
+            <%end%>
+            </div>
+            <div class="field form-group">
+            <%= f.file_field :avatar %>
+            </div>
+          
+				</div>
+				<div class="field form-group">
     <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email",class:'form-control',placeholder:'E-Mail' %>
+    <%= f.email_field :email, autofocus: true, autocomplete: "email",class:'form-control',placeholder:'E-Mail',disabled: true %>
+    </div>
+			</div>
+			<div class="about">
+				<h5>About</h5>
+				<div class="field form-group">
+    <%= f.text_area :about, autofocus: true, autocomplete: "about",class:"form-control",placeholder:"Personal Description" %>
   </div>
-<br/>
-  <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
+  
+  
+			</div>
+		</div>
+	</div>
+</div>
+</div>
+<div class="col-xl-9 col-lg-9 col-md-12 col-sm-12 col-12">
+<div class="card h-100">
+	<div class="card-body">
+		<div class="row gutters">
+			<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+				<h6 class="mb-2 text-primary">Personal Details</h6>
+			</div>
+			<div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+				<div class="form-group">
+					<label for="fullName">Full Name</label>
+          <div class="field form-group">
+					<%= f.text_field :name, autofocus: true, autocomplete: "name",class:"form-control",placeholder:"name" %>
+          </div>
+				</div>
+			</div>
+			<div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+				<div class="form-group">
+					<label for="eMail">Veichle</label>
+					<div class="field form-group">
+          <p>
+          <br />
+          <%= f.radio_button :vehicle, 'Motocycle' %> Motocycle<br />
+          <%= f.radio_button :vehicle, 'Car' %> Car<br />
+          </p>
+        </div>
+				</div>
+			</div>
+			<div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+				<div class="form-group">
+					<label for="phone">Phone</label>
+					<div class="field form-group">
+          <%= f.text_field :phone, autofocus: true, autocomplete: "phone",class:"form-control",placeholder:"Phone Number" %>
+        </div>
+				</div>
+			</div>
+			<div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+				<div class="form-group">
+					<label for="website">Instagram</label>
+					<div class="field form-group">
+          <%= f.text_field :instagram, autofocus: true, autocomplete: "instagram",class:"form-control",placeholder:"instagram" %>
+          </div>
+				</div>
+			</div>
+		</div>
+		<div class="row gutters">
+			<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+				<h6 class="mt-3 mb-2 text-primary">Change your Password</h6>
+			</div>
+			<div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+				<% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
     <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
   <% end %>
 
@@ -23,43 +104,46 @@
       <em><%= @minimum_password_length %> characters minimum</em>
     <% end %>
   </div>
-<br/>
-  <div class="field form-group">
+			</div>
+			<div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+				<div class="form-group">
+					<div class="field form-group">
     <%= f.label :password_confirmation %><br />
     <%= f.password_field :password_confirmation, autocomplete: "new-password",class:'form-control',placeholder:'Conferma Password' %>
   </div>
-
-  <div class="field form-group">
+				</div>
+			</div>
+      
+			<div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+				 
+			</div>
+			<div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+				
+			</div>
+		</div>
+		<div class="row gutters">
+			<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+				<div class="text-center">
+        <div class="field form-group">
+  <h6 class="mt-3 mb-2 text-primary">Confirm your Changes!</h6>
+  
     <%= f.label :current_password %> <i>(we need your current password to confirm your changes)</i><br />
     <%= f.password_field :current_password, autocomplete: "current-password",class:'form-control',placeholder:'Password Attuale' %>
   </div>
-
-  <div class="actions">
-  <br/>
-    <%= f.submit "Update",class:'btn btn-secondary' %>
-  </div>
-<% end %>
+  
+					
+					<div class="form-group">
+					<div class="actions">
+          <br/>
+          <%= f.submit "Update",class:'btn btn-secondary' %>
+          </div>
+				</div>
+			</div>
+		</div>
+	</div>
 </div>
 </div>
-
-
-<br/>
-
-
-
-
-<div class="card">
-  <div class="card-header">
-    <h4>Cancel my account</h4>
-  </div>
-  <div class="card-body">
-    <h5 class="card-title">Unhappy?</h5>
-    <p class="card-text"> <%= button_to "Cancel my account", user_registration_path, data: { confirm: "Are you sure?" }, method: :delete,class:'btn btn-danger' %></p>
-    
-  </div>
 </div>
-
-
-
-
-<%= link_to "Back", :back,class:'btn btn-dark' %>
+</div>
+</div>
+<%end%>

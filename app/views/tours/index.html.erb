@@ -1,47 +1,126 @@
-
-
-<h1>My Tour </h1> 
-
-
-<table class="table table-striped table-hover">
-   <thead class="table-dark">
-    <tr>
-      
-      <th>Autista</th>
-      <th>Mezzo di trasporto</th>
-      <th>Data</th>
-      <th>Partenza</th>
-      <th>Destinazione</th>
-      <th>Durata</th>
-      <th>Posti disponibili</th>
-      <th>User ID</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @tours.each do |tour| %>
-    <%if tour.user==current_user%>
-      <tr>
-        <td><%= tour.Autista %></td>
-        <td><%= tour.Mezzo_Di_Trasporto %></td>
-        <td><%= tour.Data %></td>
-        <td><%= tour.Partenza %></td>
-        <td><%= tour.destinazione %></td>
-        <td><%= tour.durata %></td>
-        <td><%= tour.Posti_Disponibili %></td>
-        <td><%= link_to 'Show Trip', tour %></td>
-        <td><%= link_to 'Mostra Tappe', tour_stops_path(tour),class:'btn btn-outline-primary btn-sm' %></td>
-        <td><%= link_to 'Modifica', edit_tour_path(tour),class:'btn btn-outline-warning btn-sm' %></td>
-        <td><%= button_to 'Elimina', tour, method: :delete,class:'btn btn-outline-danger btn-sm', data: {confirm: "Sei sicuro di voler eliminare questo tour?"}  %></td>
-       
-      </tr>
-      <% end %>
-    <% end %>
-  </tbody>
-</table>
-
+<% if @tours == [] || @tours == nil %>
+    <main class="ui raised very padded text container segment">
+        <h1 class="ui header">No Results Found</h1>
+        <a class="ui mini positive button" href="/tours/new">Start your own?</a>
+        <a class="ui mini teal button" href="/home/about">About Us</a>
+    </main>
+    <% else %>                     
+    </div>
+  
 <br>
 
 
-<%= link_to 'Aggiungi Tour', new_tour_path,class:"btn btn-secondary" %>
+
+
+<main class="ui two column doubling stackable grid container">
+<section class="column">
+<div class="container pb-5 mt-n2 mt-md-n3">
+    <div class="row">
+    <% @tours.each do |tour| %>
+        
+            
+            <!-- Item-->
+            <!-- Item-->
+            <!-- Item-->
+            
+            <div class="d-sm-flex justify-content-between my-4">
+                <div class="media d-block d-sm-flex text-center text-sm-left">
+                    <div class="cart-item-thumb mx-auto mr-sm-4">
+                    <div class="account-settings">
+                  <div class="card-body">
+                  <div class="user-profile">
+                  <div class="user-avatar" class= "img-circular">
+                    <%=image_tag(tour.user.avatar_thumbnail) %>
+                    </div>
+                    <%= link_to 'Show Trip', tour,class:"btn btn-outline-primary" %>
+                    </div>
+                    </div>
+                    </div>
+                    
+                    </div>
+                    <div class="media-body pt-3">
+                        <h3 class="product-card-title font-weight-semibold border-0 pb-0"><%= link_to  tour.user.username, user_path(tour.user) %></h3>
+                        <div class="font-size-sm"><span class="text-muted mr-2">Start:</span>
+                        <%= tour.Data %>|<%= tour.Partenza %></div>
+                        <div class="font-size-sm"><span class="text-muted mr-2">End:</span>
+                        <%= tour.enddate %>|<%= tour.destinazione %></div>
+                        <div class="font-size-sm"><span class="text-muted mr-2">Descrizione:</span>
+                        <%= tour.description %></div>
+                        <div class="font-size-sm"><span class="text-muted mr-2">Veichle:</span><%= tour.Mezzo_Di_Trasporto %></div>
+                        <div class="font-size-sm"><span class="text-muted mr-2">Passengers:</span>  <%tour.memberships.count%>/<%= tour.Posti_Disponibili %></div>
+                    </div>
+                </div>
+                <div class="pt-2 pt-sm-0 pl-sm-3 mx-auto mx-sm-0 text-center text-sm-left" style="max-width: 10rem;">
+                    
+                            
+                        
+               
+            </div>
+        </div>
+        <%end%>
+        <!-- Sidebar-->
+        
+        
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</section>
+
+                   <section class="column">
+                <div class="ui teal segment">
+                    <div class="ui basic segment">
+                        <h4 class="ui header">Search by:</h4>
+                        
+                        <form>
+<%= form_tag "/tours", method: "GET" do %>
+  <div class="form-row">
+    <div class="form-group" >
+    
+      <%= label_tag :search_by_autista %>
+      <%= text_field_tag :search_by_autista, params[:search_by_autista], class:"form-control" %>
+     
+    </div>
+    <div class="form-group">
+      
+      <%= label_tag :search_by_partenza %>
+      <%= text_field_tag :search_by_partenza, params[:search_by_partenza], class:"form-control"%>
+
+    </div>
+
+    <div class="form-group">
+      
+      <%= label_tag :search_by_destinazione %>
+      <%= text_field_tag :search_by_destinazione, params[:search_by_destinazione], class:"form-control"%>
+
+    </div>
+    <div class="form-group">
+      
+      <%= label_tag :search_by_data %>
+      <%= date_field_tag :search_by_data, params[:search_by_data], class:"form-control"%>
+
+    </div>
+
+
+
+  </div>
+  <br>
+  <div class="ui action input">
+  <div class="form-group">
+  <%=submit_tag "Search",class:"btn btn-primary btn-lg" %>
+  </div>
+                                   
+  </div>
+  
+  <% end %>
+</form>
+
+                    
+                </div>
+</section>
+</div>
+<%end%>
+

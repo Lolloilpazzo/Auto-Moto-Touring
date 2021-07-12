@@ -2,9 +2,12 @@
 <main class="ui two column doubling stackable grid container">
     <div class="column">
         <div class="ui basic segment">
+        
             <h1 class="display-4" class="ui header">
-                <%= @tour.Autista %>
-            </h1>
+            
+               <%= @tour.Autista %>
+                
+            
         </div>
         <div class="ui raised padded text segment">
             <h3>Partenza</h3>
@@ -15,27 +18,47 @@
             <p>
                 <%= @tour.destinazione %>
             </p>
-            <h3>Date/Time:</h3>
+            <h3>Start Date:</h3>
             <p>
                 <%= @tour.Data %>
             </p>
-            <h3>Mezzo Di Trasporto</h3>
+            <h3>End Date:</h3>
+            <p>
+                <%= @tour.enddate %>
+            </p>
+            <h3>Mezzo Di Trasporto:</h3>
             <p>
                 <%= @tour.Mezzo_Di_Trasporto %>
             </p>
+            <h3>Description:</h3>
+            <p>
+                <%= @tour.description %>
+            </p>
+            <div class="d-flex flex-row-reverse">
+            <%if @tour.memberships.count<@tour.Posti_Disponibili && current_user!= @tour.user %>
+                    
+                    <div class="p-2"><%=link_to 'Join Tour', join_tour_path(@tour),class:"btn btn-outline-success" %></div>
+                    <%Membership.all.each do |member|%>
+                    <%if member.tour_id ==@tour.id && member.user_id == current_user.id%>
+                    <div class="p-2"><%= button_to "Leave Tour", remove_from_tour_tour_path(@tour),class:"btn btn-danger", :method => :delete%></div>
+                    
+                    <%end%>
+                    
+                    <%end%>
+                    
+             <%else%>
 
-
-            
-            <div id="durata">
-
-
-            </div>
-            <div id="distanza">
-
-
-            </div>
+            <button type="button" class="btn btn-outline-danger" disabled>COMPLETE</button>
+            <%Membership.all.each do |member|%>
+                    <%if member.tour_id ==@tour.id && member.user_id == current_user.id%>
+                    <div class="p-2"><%= button_to "Leave Tour", remove_from_tour_tour_path(@tour),class:"btn btn-danger", :method => :delete%></div>
+                    <%end%>
+                    <%end%>
+                    <%end%>
 
         </div>
+        </div>
+        
         <div class="ui basic segment">
             <h4 class="ui header">Stops:</h4>
             <div class="ui two column doubling stackable grid container">
@@ -51,34 +74,83 @@
         </div>
         <div class="ui floated basic segment">
             <h4>Passengers:</h4>
+            <div class="d-flex">
+            <% Membership.all.each do |member| %>
+              <tr>
+              <%if member.tour_id==@tour.id%>
+              
+                <div class="p-2">
+                <div class="card" style="width: 12rem; ">
+                <div class="card-header">
+                    <%= member.user.username %>
+                    </div>
+                <h5 class="card-title"></h5>
+                <div class="card-body">
+                
+                <div class="account-settings">
+                <div class="user-profile">
+                  <div class="user-avatar" class= "img-circular">
+                <h6 class="card-subtitle mb-2 text-muted"><%=image_tag(member.user.avatar_thumbnail) %></h6>
+                </div>
+                </div>
+                </div>
+                
+    
+                </div>
+                </div>
+                </div>
+                
+               
+              <%end%>
+            <% end %>
+
+            </div>
             
+           
+
+
+
+            
+            
+           
+
         </div>
     </div>
     
         <div class="column">
             <div class="ui basic segment"></div>
             
+            </h1>
                 <div class="ui segment">
                     <h3>Tragitto:</h3>
                     <script>
 var directionsDisplay = new google.maps.DirectionsRenderer();
 var directionsService = new google.maps.DirectionsService();
+var renderOptions = { draggable: true };
 
 function calcRoute() {
+    var waypoints = [];
+    '<%@tour.stops.each do |stop|%>'
+        waypoints.push(
+        {
+        location: new google.maps.LatLng('<%=stop.latitude%>', '<%=stop.longitude%>')
+        }
+        );
+      
+    '<%end%>'
+    
   var infowindow = new google.maps.InfoWindow();
     var request = {
         origin:      "<%=@tour.Partenza%>",
         destination: "<%=@tour.destinazione%>",
+        waypoints: waypoints,
         travelMode:  google.maps.TravelMode.DRIVING,
         unitSystem: google.maps.UnitSystem.IMPERIAL
     };
+    
     directionsService.route(request, function(response, status) {
         if (status == google.maps.DirectionsStatus.OK) {
 
-            const distanza = document.querySelector('#distanza');
-            distanza.innerHTML = "<br /><strong>Distanza</strong> <i class='fas fa-road'></i> : " + (response.routes[0].legs[0].distance.value)*(0.000621371) + " Km" + ".</div>";
-            const durata =document.querySelector('#durata');
-            durata.innerHTML = "<br /><strong>Durata</strong><i class='fas fa-hourglass-start'></i> : " + response.routes[0].legs[0].duration.text + ".</div>";
             directionsDisplay.setDirections(response);
         }
     });
@@ -88,7 +160,7 @@ calcRoute();
 
 </script>
 <div style='width: 800px;'>
-  <div id="map" style='width: 400px; height: 400px;'></div>
+  <div id="map" style='width: 500px; height: 400px;'></div>
   </div>
 <script>
 
@@ -106,32 +178,21 @@ handler.buildMap({ provider: {}, internal: {id: 'map'}}, function(){
  </div>
                
                     <div class="ui segment">
-                    <h3>Invite a Friend!</h3>
-
-                    <% User.all.each do |f| %>
-                        <%if f.friend_with?(current_user)%>
-                         <%= f.email %>
-                            <input class="ui tiny basic button" type="submit" name="commit" value="Invite Friend" data-disable-with="Invite Friend">
-                            <% end %>
-                            <%end%>
-                    
+                    <h3>Posti a Disposizione:</h3>
+            <p>
+                <%= @tour.Posti_Disponibili %>
+            </p>
+            <h3>Partecipanti:</h3>
+            <p>
+                <%= @tour.memberships.count %>
+            </p>
                 </div>
                        
-                        <div class="ui segment">
-                            <h3 class="ui header">Add Comment</h3>
-                        <%= form_with(model: [@tour, @tour.comments.build]) do |f| %>
-                              <div class="form-group">
-                                <% @tour.comments.each do |comment| %>
-                                <div class="comment_content">
-                                
-                                <p><%= comment.body %></p>
-                                
-                                <% end %>
-                                <%= f.text_area :body, class: 'form-control' %>
-                              </div>
-                              <%= f.submit 'invia', class: 'ui tiny basic button' %>
-                            <% end %>
+                        
 
+
+
+ 
 
                            
 
