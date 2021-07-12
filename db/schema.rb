@@ -10,6 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
+<<<<<<< Updated upstream
 ActiveRecord::Schema.define(version: 2021_07_12_234100) do
 
   create_table "action_text_rich_texts", force: :cascade do |t|
@@ -21,6 +22,9 @@ ActiveRecord::Schema.define(version: 2021_07_12_234100) do
     t.datetime "updated_at", precision: 6, null: false
     t.index ["record_type", "record_id", "name"], name: "index_action_text_rich_texts_uniqueness", unique: true
   end
+=======
+ActiveRecord::Schema.define(version: 2021_07_12_215538) do
+>>>>>>> Stashed changes
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -58,17 +62,6 @@ ActiveRecord::Schema.define(version: 2021_07_12_234100) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
-  create_table "friendly_id_slugs", force: :cascade do |t|
-    t.string "slug", null: false
-    t.integer "sluggable_id", null: false
-    t.string "sluggable_type", limit: 50
-    t.string "scope"
-    t.datetime "created_at"
-    t.index ["slug", "sluggable_type", "scope"], name: "index_friendly_id_slugs_on_slug_and_sluggable_type_and_scope", unique: true
-    t.index ["slug", "sluggable_type"], name: "index_friendly_id_slugs_on_slug_and_sluggable_type"
-    t.index ["sluggable_type", "sluggable_id"], name: "index_friendly_id_slugs_on_sluggable_type_and_sluggable_id"
-  end
-
   create_table "invitations", force: :cascade do |t|
     t.integer "user_id", null: false
     t.integer "friend_id"
@@ -83,18 +76,6 @@ ActiveRecord::Schema.define(version: 2021_07_12_234100) do
     t.datetime "updated_at", precision: 6, null: false
     t.integer "user_id"
     t.integer "tour_id"
-  end
-
-  create_table "questions", force: :cascade do |t|
-    t.text "edit_history", default: ""
-    t.integer "commentable_id"
-    t.string "commentable_type"
-    t.integer "user_id", null: false
-    t.boolean "reply", default: false
-    t.integer "comment_number"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["user_id"], name: "index_questions_on_user_id"
   end
 
   create_table "stops", force: :cascade do |t|
@@ -121,10 +102,8 @@ ActiveRecord::Schema.define(version: 2021_07_12_234100) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.integer "user_id"
-    t.string "slug"
     t.text "description"
     t.date "enddate"
-    t.index ["slug"], name: "index_tours_on_slug", unique: true
     t.index ["user_id"], name: "index_tours_on_user_id"
   end
 
@@ -136,14 +115,22 @@ ActiveRecord::Schema.define(version: 2021_07_12_234100) do
     t.datetime "remember_created_at"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+<<<<<<< Updated upstream
     t.integer "number_of_comments", default: 0
+=======
+    t.string "provider"
+    t.string "uid"
+>>>>>>> Stashed changes
     t.string "name"
     t.string "phone"
     t.string "instagram"
     t.string "vehicle"
     t.string "about"
+<<<<<<< Updated upstream
     t.string "provider"
     t.string "uid"
+=======
+>>>>>>> Stashed changes
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
@@ -151,6 +138,5 @@ ActiveRecord::Schema.define(version: 2021_07_12_234100) do
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "invitations", "users"
-  add_foreign_key "questions", "users"
   add_foreign_key "stops", "tours"
 end

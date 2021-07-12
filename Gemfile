@@ -61,6 +61,7 @@ group :test do
   gem 'database_cleaner'
   gem 'cucumber-rails'
   gem 'rspec-rails'
+  gem 'rails-controller-testing'
 
 end
 

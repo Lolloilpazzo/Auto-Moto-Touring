@@ -1,8 +1,7 @@
 Given(/^I am authenticated$/) do
-    u = User.create!(:email=>"emailtest@gmayl.com", 
-    :password => "password", 
+    u = User.create!(:email=>"emailtest@gmayl.com", :password => "password", 
     :roles_mask => 0 )
-    visit "http://127.0.0.1:3000/id/users/sign_up"
+    visit "/"
     fill_in "Email", with: "emailtest@gmayl.com"
     fill_in "Password", with: "password"
     fill_in "Password confirmation", with: "password"
@@ -20,7 +19,53 @@ Given(/^Movie "(.*?)" with Director "(.*?)" and Year "(.*?)" is there$/) do |arg
     m = Movie.new( title: arg1, director: arg2, year: arg3)
     m.save
 end
-      
+
+Given(/^I should see the tours list$/)do |arg1|
+    expect(page).to have_selector("Tours", text:arg1)
+end
+
+Given(/^I should see "(.*?)"$/) do |arg1|
+    expect(page).to have_selector("logged in as:", text:arg1)
+end
+
+Given(/^I want to Sign out$/) do
+    click_button "Sign out"
+end
+
+Given(/^I want to have the Sign out button$/) do
+    expect(page).to have_button("Sign out")
+end
+
+Given(/^I wanto to go to the edit profile page$/) do
+    visit "localhost:3000/id/users/edit" #controllare se gli slash sono al contrario
+end
+
+
+Given(/^I am on the My tours page/) do
+    expect(page).to have_link("my tours")
+    expect(page).to have_button("add tour")
+end
+
+Given(/^I am on show tour page/) do
+    visit "localhost:3000/id/users/tour"  #controllare se l'url è giusto
+end
+
+Given (/^I should see partenza/) do
+    expect(page).to have_text("partenza")
+end
+
+Given (/^I should see destinazione/) do
+    expect(page).to have_text("destinazione")
+end
+
+Given (/^I want to have join tour button$/)
+    expect(page).to have_button("join tour")
+end
+
+Given (/^I want to have leave tour button$/)
+    expect(page).to have_button("leave tour")
+end
+    
     #  Given(/^Moviegoer "(.*?)" is there$/) do |arg1|
     #      rev = Moviegoer.new(name: arg1)
     #      rev.save
@@ -61,21 +106,21 @@ Then(/^I should not see link "(.*?)"$/) do |arg1|
 end
 
 Given(/^Given I am authenticated as admin$/) do
-    u = User.create!(:email =>"admin@spoiledpotatoes.com", 
+    u = User.create!(:email =>"admin@gmayl.com", 
     :password => "password",
     :roles_mask => 3)
     visit "/"
-    fill_in "Email", with: "admin@spoiledpotatoes.com"
+    fill_in "Email", with: "admin@gmayl.com"
     fill_in "Password", with: "password"
     click_button "Log in"
 end
 
-Given(/^Given I am authenticated as moviegoer$/) do
-    u = User.create!(:email =>"mvg@spoiledpotatoes.com", 
+Given(/^Given I am authenticated as user$/) do
+    u = User.create!(:email =>"user@gmayl.com", 
     :password => "password",
     :roles_mask => 1)
     visit "/"
-    fill_in "Email", with: " mvg @spoiledpotatoes.com"
+    fill_in "Email", with: " user@gmayl.com"
     fill_in "Password", with: " password "
     click_button "Log in"
 end

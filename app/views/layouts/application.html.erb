@@ -46,8 +46,13 @@
 
 <%yield%>
     <% if user_signed_in? %>
+<<<<<<< Updated upstream
 Logged in as <%= current_user.email%> <%= button_to 'Logout', 
 destroy_user_session_path, :method => :delete%>
+=======
+Logged in as <%= current_user.email%> [<%= button_to 'Logout', 
+destroy_user_session_path, :method => :delete%>]
+>>>>>>> Stashed changes
 <% end %>
 
 
