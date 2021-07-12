@@ -35,7 +35,8 @@
                 <%= @tour.description %>
             </p>
             <div class="d-flex flex-row-reverse">
-            <%if @tour.memberships.count<@tour.Posti_Disponibili && current_user!= @tour.user %>
+            <%if current_user!= @tour.user%>
+            <%if @tour.memberships.count<@tour.Posti_Disponibili %>
                     
                     <div class="p-2"><%=link_to 'Join Tour', join_tour_path(@tour),class:"btn btn-outline-success" %></div>
                     <%Membership.all.each do |member|%>
@@ -52,6 +53,7 @@
             <%Membership.all.each do |member|%>
                     <%if member.tour_id ==@tour.id && member.user_id == current_user.id%>
                     <div class="p-2"><%= button_to "Leave Tour", remove_from_tour_tour_path(@tour),class:"btn btn-danger", :method => :delete%></div>
+                    <%end%>
                     <%end%>
                     <%end%>
                     <%end%>
@@ -82,7 +84,7 @@
                 <div class="p-2">
                 <div class="card" style="width: 12rem; ">
                 <div class="card-header">
-                    <%= member.user.username %>
+                    <%= link_to  member.user.username, user_path(member.user) %>
                     </div>
                 <h5 class="card-title"></h5>
                 <div class="card-body">
@@ -195,7 +197,20 @@ handler.buildMap({ provider: {}, internal: {id: 'map'}}, function(){
  
 
                            
+<hr class="my-4">
+  
+  <p class="lead">
 
+  <%if @tour.user==current_user%>
+    <%= link_to 'Edit', edit_tour_path(@tour),class:"btn btn-outline-warning" %> 
+    <%= link_to 'Add Stop', new_tour_stop_path(@tour),class:"btn btn-outline-info" %> 
+    
+  
+  <% end %>
+  
+  
+  </p>
+       
     
 
   
@@ -210,18 +225,5 @@ handler.buildMap({ provider: {}, internal: {id: 'map'}}, function(){
                               
   </main>
       
-  <hr class="my-4">
   
-  <p class="lead">
-
-  <%if @tour.user==current_user%>
-    <%= link_to 'Edit', edit_tour_path(@tour),class:"btn btn-secondary" %> | <%= link_to 'Back', home_ALL_path,class:"btn btn-dark" %>|
-    <%= link_to 'Add Stop', new_tour_stop_path(@tour) %> 
-    
-  <%else %>
-  <%= link_to 'Back', home_ALL_path,class:"btn btn-dark" %>
-  <% end %>
-  
-  
-  </p>
        

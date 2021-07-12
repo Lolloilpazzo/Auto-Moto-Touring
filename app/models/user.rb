@@ -2,17 +2,12 @@ class User < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
-<<<<<<< Updated upstream
          :recoverable, :rememberable, :validatable, 
          :omniauthable, :omniauth_providers => [:facebook, :google_oauth2]
          
-  has_many :tours
-=======
-         :recoverable, :rememberable, :validatable
   
   has_many :memberships
   has_many :tours, :through => :memberships, dependent: :destroy
->>>>>>> Stashed changes
   has_many :invitations
   has_many :pending_invitations,->{where confirmed: false}, class_name: 'Invitation', foreign_key: "friend_id"
   has_many :comments

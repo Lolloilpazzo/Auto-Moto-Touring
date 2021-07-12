@@ -1,3 +1,4 @@
+<%if user_signed_in?%>
 <% if @tours == [] || @tours == nil %>
     <main class="ui raised very padded text container segment">
         <h1 class="ui header">No Results Found</h1>
@@ -47,7 +48,7 @@
                         <div class="font-size-sm"><span class="text-muted mr-2">Descrizione:</span>
                         <%= tour.description %></div>
                         <div class="font-size-sm"><span class="text-muted mr-2">Veichle:</span><%= tour.Mezzo_Di_Trasporto %></div>
-                        <div class="font-size-sm"><span class="text-muted mr-2">Passengers:</span>  <%tour.memberships.count%>/<%= tour.Posti_Disponibili %></div>
+                        <div class="font-size-sm"><span class="text-muted mr-2">Passengers:</span>  <%=tour.memberships.count%>/<%= tour.Posti_Disponibili %></div>
                     </div>
                 </div>
                 <div class="pt-2 pt-sm-0 pl-sm-3 mx-auto mx-sm-0 text-center text-sm-left" style="max-width: 10rem;">
@@ -122,5 +123,11 @@
                 </div>
 </section>
 </div>
+<%end%>
+<%else%>
+
+<%= link_to "Sign In", new_user_session_path, class:"nav-link active"%>
+
+
 <%end%>
 

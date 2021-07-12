@@ -37,6 +37,10 @@
          <li class="nav-item" >
          <%= button_to "Sign Out", destroy_user_session_path, method: :delete,class: 'btn btn-dark navbar-btn btn-sm' %>
         </li>
+        
+        
+        <div class="text-warning">Logged in as <%= current_user.email%> </div>
+        
 
         <% else %>
 

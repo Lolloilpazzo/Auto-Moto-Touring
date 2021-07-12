@@ -17,11 +17,17 @@
                <%= @stop.longitude %>
             </p>
             <h3>Tempo</h3>
+            <%= @stop.duration %>
             <p>
                 
             </p><p>
-            <%= link_to 'Edit', edit_tour_stop_path(@tour,@stop),class:"btn btn-outline-warning" %> 
+            <%if @tour.user==current_user%>
+    <%= link_to 'Edit', edit_tour_stop_path(@tour,@stop),class:"btn btn-outline-warning" %> 
             <%= button_to 'Destroy Stop', [@tour,@stop],class:"btn btn-outline-danger", method: :delete, data: { confirm: 'Are you sure?' } %>
+    
+  
+  <% end %>
+            
             </div>
             </div>
         <div class="column">

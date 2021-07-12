@@ -114,7 +114,7 @@ end
 
 
 def correct_user
-  @tour = current_user.tours.find_by(id: params[:id])
+  @tour.user = current_user
   redirect_to tours_path, notice:"Not Autorized To Edit This Tour" if @tour.nil?
 end
 

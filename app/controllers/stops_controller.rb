@@ -2,6 +2,7 @@ class StopsController < ApplicationController
   before_action :get_tour
   before_action :set_stop, only: %i[ show edit update destroy ]
   before_action :authenticate_user!,except: [:home_about, :home_index, :home_stat]
+  before_action :correct_user, only: [:edit, :update, :destroy]
  
   # GET /stops or /stops.json
   def index

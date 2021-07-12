@@ -10,10 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-<<<<<<< Updated upstream
-ActiveRecord::Schema.define(version: 2021_07_08_133854) do
-=======
-ActiveRecord::Schema.define(version: 2021_07_12_135354) do
+ActiveRecord::Schema.define(version: 2021_07_12_234100) do
 
   create_table "action_text_rich_texts", force: :cascade do |t|
     t.string "name", null: false
@@ -52,7 +49,6 @@ ActiveRecord::Schema.define(version: 2021_07_12_135354) do
     t.string "variation_digest", null: false
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
   end
->>>>>>> Stashed changes
 
   create_table "comments", force: :cascade do |t|
     t.text "body"
@@ -110,6 +106,7 @@ ActiveRecord::Schema.define(version: 2021_07_12_135354) do
     t.integer "tour_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "duration"
     t.index ["tour_id"], name: "index_stops_on_tour_id"
   end
 
@@ -139,17 +136,14 @@ ActiveRecord::Schema.define(version: 2021_07_12_135354) do
     t.datetime "remember_created_at"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-<<<<<<< Updated upstream
-    t.string "provider"
-    t.string "uid"
-=======
     t.integer "number_of_comments", default: 0
     t.string "name"
     t.string "phone"
     t.string "instagram"
     t.string "vehicle"
     t.string "about"
->>>>>>> Stashed changes
+    t.string "provider"
+    t.string "uid"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end

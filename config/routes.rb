@@ -3,14 +3,11 @@ Rails.application.routes.draw do
   
   
   get 'users/index'
-<<<<<<< Updated upstream
   devise_for :users, :path_prefix => 'id' ,
   :controllers => { :omniauth_callbacks => 
   "users/omniauth_callbacks" }
 
-=======
-  devise_for :users, :path_prefix => 'id'
->>>>>>> Stashed changes
+  
   resources :users, :only =>[:show]
 
 
