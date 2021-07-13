@@ -7,10 +7,7 @@ Rails.application.routes.draw do
   :controllers => { :omniauth_callbacks => 
   "users/omniauth_callbacks" }
 
-<<<<<<< Updated upstream
   
-=======
->>>>>>> Stashed changes
   resources :users, :only =>[:show]
 
 

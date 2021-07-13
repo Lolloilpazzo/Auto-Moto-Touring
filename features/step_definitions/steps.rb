@@ -4,10 +4,7 @@ Given(/^I am authenticated$/) do
     visit "/"
     fill_in "Email", with: "emailtest@gmayl.com"
     fill_in "Password", with: "password"
-    fill_in "Password confirmation", with: "password"
-    click_button "Sign up"
-    expect(page).to have_text("Logged in as 
-    emailtest@gmayl.com")
+    click_button "Sign in"
 end
 
 
@@ -58,11 +55,11 @@ Given (/^I should see destinazione/) do
     expect(page).to have_text("destinazione")
 end
 
-Given (/^I want to have join tour button$/)
+Given (/^I want to have join tour button$/) do
     expect(page).to have_button("join tour")
 end
 
-Given (/^I want to have leave tour button$/)
+Given (/^I want to have leave tour button$/) do
     expect(page).to have_button("leave tour")
 end
     

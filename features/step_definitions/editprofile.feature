@@ -1,8 +1,5 @@
 Feature: Edit profile
 
-        As a user
-        I want to see 
-        I want to do....
 
 
     Scenario: Home
@@ -46,5 +43,7 @@ Feature: Edit profile
         Given I am authenticated
         Then I want to sign out
 
-
+    Scenario: prova
+        Given I am authenticated
+        Then I should see "logged in as:"
 
