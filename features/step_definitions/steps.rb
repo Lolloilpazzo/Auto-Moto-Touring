@@ -12,8 +12,8 @@ Given(/^I am on the home page$/) do
     visit "/"
 end
       
-Given(/^Movie "(.*?)" with Director "(.*?)" and Year "(.*?)" is there$/) do |arg1,arg2,arg3| #questa cosa sono i riferimenti alle espressioni regolari (.*?)
-    m = Movie.new( title: arg1, director: arg2, year: arg3)
+Given(/^Tour "(.*?)" with Driver "(.*?)" and date "(.*?)" is there$/) do |arg1,arg2,arg3| #questa cosa sono i riferimenti alle espressioni regolari (.*?)
+    m = Tour.new( title: arg1, driver: arg2, year: arg3)
     m.save
 end
 
@@ -62,18 +62,7 @@ end
 Given (/^I want to have leave tour button$/) do
     expect(page).to have_button("leave tour")
 end
-    
-    #  Given(/^Moviegoer "(.*?)" is there$/) do |arg1|
-    #      rev = Moviegoer.new(name: arg1)
-    #      rev.save
-    #  end
-      
-    #  Given(/^Review "(.*?)" by Moviegoer "(.*?)" for Movie "(.*?)" with Score "(.*?)" is there$/) do |arg1,arg2,arg3,arg4|
-    #    rev = Moviegoer.find_by( name: arg2)
-    #    mov = Movie.find_by( title: arg3)
-    #    r = Review.new(body: arg1, movie: mov, score: arg4, moviegoer: rev )
-    #    r.save
-    #  end
+    b
       
      
 Then(/^I should see table heading "(.*?)"$/) do |arg1|
